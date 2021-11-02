@@ -1,5 +1,6 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
+const fortune = require ('./lib/fortune')
 
 const app = express()
 
@@ -18,9 +19,7 @@ app.get('/', (req, res) => res.render('home'))
 app.get('/about', (req, res) => {
     
 
-    const randomFortune = fortunes[Math.floor(Math.random()* fortunes.length)]
-    const randomWord = word[Math.floor(Math.random()* word.length)]
-    res.render('about', {getWord:randomWord} )
+    res.render('about', {fortune: fortune.getFortune()})
 } )
 
 // custom 404 page
@@ -36,22 +35,6 @@ app.use((err, req, res, next) => {
   res.render('500')
 })
 
-// please do not touch
-const fortunes = [
-    "Conquer your fears or they will conquer you.",
-    "Rivers need springs.",
-    "Do not fear what you don't know.",
-    "You will have a pleasant surprise.",
-    "Whenever possible, keep it simple.",
-]
-
-const word = [
-    "eat",
-    "Rivers .",
-    "fear",
-    "pleasant surprise.",
-    "keep it simple.",
-]
 
 
 
